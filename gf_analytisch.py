@@ -18,7 +18,7 @@ def gfaktor_eq(x,y,Z): #in 1/cm^2*sr
         +4*(Z**2+4*Y**2)**0.5*X*at(2*X/(Z**2+4*Y**2)**0.5)
         -4*Z*X*at(2*X/Z)
         +Z**2*np.log(((Z**2+4*X**2)*(Z**2+4*Y**2))/((Z**2+4*X**2+4*Y**2)*Z**2))
-        )/100
+        )
 
 def est_count_per_sec(G,j): #in 1/s
     return j*G
@@ -30,7 +30,7 @@ j = 5.24 #in 1/cm**2
 t = 3 # in h
 print("20x10")
 print("gfaktor_eq")
-print_sci_n(gfaktor_eq(10,20,60.5))
+print_sci_n(gfaktor_eq(1,2,6.05))
 print("est_count_per_sec")
 print_sci_n(est_count_per_sec(gfaktor_eq(10,20,60.5),j))
 print()
@@ -49,7 +49,7 @@ print_sci_n(est_counts(est_count_per_sec(gfaktor_eq(10,10,60.5),j),t))
 print()
 print("18x18")
 print("gfaktor_eq")
-print_sci_n(gfaktor_eq(18,18,60.5))
+print_sci_n(gfaktor_eq(1.8,1.8,6.05))
 print()
 print("est_count_per_sec")
 print_sci_n(est_count_per_sec(gfaktor_eq(18,18,60.5),j))

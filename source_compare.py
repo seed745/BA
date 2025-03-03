@@ -40,7 +40,7 @@ for i in range(9):
 tabelle(np.round(source_area,2),np.round(geofacs,4))
 
 #plot generation
-plt.plot(source_area,geofacs)
+plt.errorbar(source_area,geofacs,yerr= 0.0009,capsize = 5, capthick = 2)
 #plt.xlim(left=2)
 plt.axhline(y=0.0268, linestyle ="--", linewidth= 2, color = "orange")
 plt.axvline(x=2.13, linestyle="--", linewidth= 2, color = "green")

@@ -22,25 +22,26 @@ def latex_float(num):
         base = base[1:]  # Remove the leading '0.'
     
     # Construct the LaTeX scientific notation
-    latex_expr = f"{base} \\cdot 10^{{{int(exponent)}}}"
+    latex_expr = f"${base} \\cdot 10^{{{int(exponent)}}}$"
     
     return latex_expr
 
 
 
-def tabelle2(a,b): 
+def tabelle2(a, b): 
     for i in range(len(a)):
-        print("$"+latex_float(a[i])+"$"+" & "+"$"+latex_float(b[i])+"$"+" \\" "\\")
+        print(latex_float(a[i]) + " & " + latex_float(b[i]) + " \\" "\\")
     print("Ende")
 
-def tabelle4(a,b,c,d): 
+def tabelle4(a, b, c, d): 
     for i in range(len(a)):
-        print(a[i]+" & "+"$"+latex_float(b[i])+"$"+" & "+"$"+latex_float(c[i])+"$"+" & "+"$"+latex_float(d[i])+"$"+" \\" "\\")
+        print(a[i] + " & " + latex_float(b[i]) + " & " + latex_float(c[i]) + " & " + latex_float(d[i]) + " \\" "\\")
     print("Ende")
+
 
 def tabelle_einfach(a): 
-    for i in range(len(a)):
-        print(latex_float(a[i][0])+" & "+latex_float(a[i][1])+" & "+latex_float(a[i][2])+" & "+latex_float(a[i][3])+" & "+latex_float(a[i][4])+" \\" "\\")
+    #for i in range(len(a)):
+    print(latex_float(a[0])+" & "+latex_float(a[1])+" & "+latex_float(a[2])+" & "+latex_float(a[3])+" & "+latex_float(a[4])+" \\" "\\")
     print("Ende")
 
 def eval(file, area):

@@ -3,7 +3,7 @@
 import pandas as pd 
 import numpy as np
 from matplotlib import pyplot as plt
-from util import tabelle
+from util import tabelle_einfach
 
 #area in cm²
 area = 5.76
@@ -38,8 +38,9 @@ for i in range(5):
     geofacs.append(geofac)
 
 runnumber = [1,2,3,4,5]
+
 #LATEX tabular
-tabelle(runnumber,np.round(geofacs,4))
+tabelle_einfach(np.round(geofacs,4))
 #tabelle_einfach(erg)
 
 #error calc

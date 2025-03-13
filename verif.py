@@ -9,7 +9,9 @@ hand.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq10_s
 hand.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq20_self.0.hits",area20),3))
 
 mrad =[]
-mrad.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq10.0.hits",area10),5))
+mrad.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq10_mid.0.hits",area10),5))
+
+#mrad.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq10.0.hits",area10),5))
 mrad.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq20.0.hits",area20),3))
 
 PD=["10x10","20x10"]

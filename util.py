@@ -60,8 +60,8 @@ def eval(file, area):
     #counting the coincidence events
     dupli = df[df.duplicated(subset=["evid"],keep=False)]
     print(dupli.size)
-    group = dupli.groupby("detid").indices
-
+    group = dupli.groupby(by=["detid"]).indices
+    print(group)
     hits = len(group[0])
     ratio = hits/1000000
     geofac = np.pi*area*ratio

@@ -5,8 +5,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 from util import tabelle2
 
-source_length = [2,4,6,8,9,9.5,10,12,14] #in mm
-source_area = []
+source_length = np.array([2,4,6,8,9,9.5,10,12,14]) #in mm
+source_area = (source_length/10)**2*np.pi
 geofacs = []
 for i in range(9):
     #reading the 0.hits file 
@@ -30,20 +30,20 @@ for i in range(9):
 
     #area in cm²
     area = (source_length[i]/10)**2*np.pi 
-    source_area.append(area)
+    #source_area.append(area)
 
     #geometry factor in 1/cm²sr
     geofac = np.pi*area*ratio
     geofacs.append(geofac)
 
 #LATEX tabular
-tabelle2(np.round(source_area,2),np.round(geofacs,4))
+#tabelle2(source_length,np.round(geofacs,4))
 
 #plot generation
 plt.errorbar(source_area,geofacs,yerr= 0.0004,capsize = 5, capthick = 2)
 #plt.xlim(left=2)
 plt.axhline(y=0.0268, linestyle ="--", linewidth= 2, color = "orange")
-plt.axvline(x=2.13, linestyle="--", linewidth= 2, color = "green")
+plt.axvline(x=2.78, linestyle="--", linewidth= 2, color = "green")
 plt.ylabel("geometry factor in 1/cm²sr")
 plt.xlabel("source area in cm²")
 plt.legend(["Simulation","Analytical","FOV projection"])

@@ -10,12 +10,12 @@ source_area = (source_length/10)**2*np.pi
 geofacs = []
 for i in range(9):
     #reading the 0.hits file 
-    df = pd.read_csv("/home/jasper/OneDrive/Uni/Bachelor/sim/source/eq10_source_"+str(i)+".0.hits",skiprows=1,names=["evid","detid"], sep='\s+')
+    df = pd.read_csv("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq10_source_"+str(i)+".0.hits",skiprows=1,names=["evid","detid"], sep='\s+')
 
     #reading and adding the other.hits to df
     erg =[]
     for j in [1,2]:
-        erg.append(pd.read_csv("/home/jasper/OneDrive/Uni/Bachelor/sim/source/eq10_source_"+str(i)+"."+str(j)+".hits",skiprows=1,names=["evid","detid"], sep='\s+'))
+        erg.append(pd.read_csv("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq10_source_"+str(i)+"."+str(j)+".hits",skiprows=1,names=["evid","detid"], sep='\s+'))
         #print(erg[i-1].size)
         df = pd.concat([df,erg[j-1]],axis=0)
 

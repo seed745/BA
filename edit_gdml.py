@@ -9,7 +9,7 @@ root = tree.getroot()
 det_index = [19,20]
 for i in range(1,19):
     det_index.append(i)
-det_index += [39,40]
+det_index += [40,39] #cause of mirroring
 for i in range(21,39):
     det_index.append(i)
 print(det_index)

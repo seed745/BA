@@ -9,7 +9,7 @@ indexlist = []
 for i in range(1,21):
     indexlist.append(f"{i}")
     
-file = "/home/jasper/Bachelor/sim/simple_grid/test.0.hits"
+file = "/home/jasper/Bachelor/sim/simple_grid/test_10M.0.hits"
 
 df = pd.read_csv(file,skiprows=1,names=["evid","detid","x","y","z","dphi","dtheta"], sep='\s+')
 
@@ -27,10 +27,9 @@ for i in [1,2]:
 #counting the coincidence events
 dupli = df[df.duplicated(subset=["evid"],keep=False)]
 
-dupli
-counts = dupli["evid"].value_counts()
-full_hits = dupli[dupli["evid"].isin(counts[counts == 4].index)]
-
+#counts = dupli["evid"].value_counts()
+#full_hits = dupli[dupli["evid"].isin(counts[counts == 4].index)]
+full_hits = dupli
 map = []
 for i in range(1,21):
     row = []
@@ -44,10 +43,21 @@ for i in range(1,21):
         row.append(geofac)
     map.append(row)
 
-plt.imshow(map,cmap="hot",interpolation="nearest")
-plt.colorbar()
+diagonal = []
+for i in range(len(map)):
+    diagonal.append(map[i][i])
+print(f"Diagonal mean value: {np.round(np.mean(diagonal),3)} \pm {np.round(np.std(diagonal),4)}")
+
+
+
+
+plt.imshow(map,cmap="plasma",interpolation="nearest", origin = "lower")
 plt.xticks(range(0,20),indexlist)
 plt.yticks(range(0,20),indexlist)
-plt.xlabel("Detector Index")
-plt.ylabel("Detector Index")
+plt.xlabel("A detector index ")
+plt.ylabel("E detector index")
+
+cbar = plt.colorbar()
+cbar.set_label("GF in 1/(cm²sr)")
+
 plt.show()

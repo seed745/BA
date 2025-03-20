@@ -56,15 +56,15 @@ heatmap = np.array(map)
 cmap = plt.cm.plasma
 norm = plt.Normalize(vmin=heatmap.min(),vmax=heatmap.max())
 
-for i in range(20):
-    for j in range(20):
-        rect = p.Rectangle(
-            (binpos[i][j][1],binpos[i][j][0]), binsize[i][j][1],binsize[i][j][0],
-            linewidth = 1, edgecolor="black",
-            facecolor=cmap(norm(map[i][j])),
-            alpha=0.2  #transparency value
-            )
-        ax.add_patch(rect)
+i=7
+j=17
+rect = p.Rectangle(
+    (binpos[i][j][1],binpos[i][j][0]), binsize[i][j][1],binsize[i][j][0],
+    linewidth = 1, edgecolor="black",
+    facecolor=cmap(norm(map[i][j])),
+    alpha=0.2  #transparency value
+    )
+ax.add_patch(rect)
 
 ax.set_xlim(-120,120)
 ax.set_ylim(-90,90)

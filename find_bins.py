@@ -52,8 +52,8 @@ def find_bins():
             phi = []
             for t in top:
                 for b in bot:
-                    theta.append(np.rad2deg(np.arctan(np.abs(t[1]-b[1])/z)))
-                    phi.append(np.rad2deg(np.arctan(np.abs(t[0]-b[0])/z)))
+                    theta.append(np.rad2deg(np.arctan2((b[1]-t[1]),z)))
+                    phi.append(np.rad2deg(np.arctan2((b[0]-t[0]),z)))
             row.append([np.abs(min(theta)-max(theta)),np.abs(min(phi)-max(phi))])
             posrow.append([min(theta),min(phi)])
         bins.append(row)
@@ -62,6 +62,6 @@ def find_bins():
 
 
 size, pos = find_bins()
-
-print(pos)
-print(len(pos[0]))
+print(len(size))
+print()
+print(len(pos))

@@ -26,7 +26,7 @@ def est_count_per_sec(G,j): #in 1/s
 def est_counts(n,t): #t in h and 
     return n*t*60*60
 
-j = 5.24 #in 1/cm**2
+j = 5.24 #in 
 t = 3 # in h
 print("20x10")
 print("gfaktor_eq")

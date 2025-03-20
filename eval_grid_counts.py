@@ -3,8 +3,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.patches as p
-from find_bins import find_bins
+
 
 indexlist = []
 for i in range(1,21):
@@ -44,42 +43,20 @@ for i in range(1,21):
         row.append(geofac)
     map.append(row)
 
-binsize , binpos = find_bins()
-binpos = np.array(binpos)
-binsize = np.array(binsize)
+#differential flow from CHAOS
+j = 5.24
+heatmap = np.array(map)*j*3*60*60
 
-numpixel = 400
 
-fig, ax = plt.subplots(figsize=(8,6))
 
-heatmap = np.array(map)
-cmap = plt.cm.plasma
-norm = plt.Normalize(vmin=heatmap.min(),vmax=heatmap.max())
 
-for i in range(20):
-    for j in range(20):
-        rect = p.Rectangle(
-            (binpos[i][j][1],binpos[i][j][0]), binsize[i][j][1],binsize[i][j][0],
-            linewidth = 1, edgecolor="black",
-            facecolor=cmap(norm(map[i][j])),
-            alpha=0.2  #transparency value
-            )
-        ax.add_patch(rect)
+plt.imshow(heatmap,cmap="plasma",interpolation="nearest", origin = "lower")
+plt.xticks(range(0,20),indexlist)
+plt.yticks(range(0,20),indexlist)
+plt.xlabel("A detector index ")
+plt.ylabel("E detector index")
 
-ax.set_xlim(-120,120)
-ax.set_ylim(-90,90)
-ax.set_aspect("auto")
-sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)  
-sm.set_array([]) 
-ax.set_xlabel("phi in °")
-ax.set_ylabel("theta in °")
-
-""" ticks = []
-for i in range(0,90,10):
-    ticks.append(f"{i+45}")
-ax.set_xticks(range(0,89,10),ticks)
-ax.set_yticks(range(0,89,10),ticks) """
-
-cbar = plt.colorbar(sm, ax=ax, label="GF in cm²sr")  
+cbar = plt.colorbar()
+cbar.set_label("particle count after 3h")
 
 plt.show()

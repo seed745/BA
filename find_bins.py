@@ -1,6 +1,7 @@
 #scipt for finding the angular bins of the simple grid design
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 def find_bins():
 #function for calculating the active area corners from corners of the casing of a photodiode
@@ -18,7 +19,7 @@ def find_bins():
     p = [] 
     x = 0
     y = 0
-    for i in range(35):
+    for i in range(50):
         if i%4 == 0 and i != 0:
             x = 0
             y += -14.2
@@ -31,15 +32,48 @@ def find_bins():
 
     #photodiode and point combination
     diode = []
-    for i in range(20):
-        if i < 18:
+    skip = False
+    i=0
+    while i < 29:
+        if i < 27 and i%4 != 0 and i%2 == 0 :
             diode.append(active(p[i+4],p[i+5],p[i+8],p[i+9]))
-        elif i == 18:
+            i+=1
+        elif i<27:
+            diode.append(active(p[i+4],p[i+5],p[i+8],p[i+9]))
+        elif i == 27:
             diode.append(active(p[1],p[2],p[5],p[6])) #adding the upper photodiode
-        elif i == 19:
+        elif i == 28:
             diode.append(active(p[29],p[30],p[33],p[34])) #adding the upper photodiode
+        i+=1
 
-    print(len(diode))
+    index = [None,19,None]
+    for i in range(19):
+        index.append(i)
+    index.extend([None,20,None])
+    
+    diode = []
+    for i in range(20):
+        diode.append(0             )
+
+
+    i= 0
+    three = 0
+    while i< len(index):
+        if index[i] != None:
+            if three != 3:
+                if index[i]<19:
+                    diode[i] =active(p[i+4],p[i+5],p[i+8],p[i+9])
+                elif index[i]==19:
+                    diode[i] = active(p[1],p[2],p[5],p[6]) #adding the upper photodiode
+                elif index[i]==20:
+                    diode[i] = active(p[29],p[30],p[33],p[34]) #adding the lower photodiode
+                i+=1
+                three += 1
+            else:
+                three = 0
+        else:
+            i+=1
+
     #angles between each active corner point to each other photodiode and then min max of those values
     z = 60.5
     bins = []
@@ -58,10 +92,20 @@ def find_bins():
             posrow.append([min(theta),min(phi)])
         bins.append(row)
         binpos.append(posrow)
-    return bins, binpos
+   
+    return bins, binpos, diode
+
+size, pos, p = find_bins()
+
+x=[]
+y=[]
+for i in p:
+    for j in range(4):
+        x.append(i[j][0])
+        y.append(i[j][1])
+
+#print(len(x))
+plt.plot(x,y,"x")
+plt.show()
 
 
-size, pos = find_bins()
-print(len(size))
-print()
-print(len(pos))

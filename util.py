@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import csv
 
 
 def print_sci_l(numbers, precision=3):
@@ -68,3 +69,19 @@ def eval(file, area):
 
     return geofac
 
+def geofac_data():
+    filename = 'grid_gf.csv'
+
+    # Initialize an empty list to store the data
+    data = []
+
+    # Open the CSV file for reading
+    with open(filename, mode='r', newline='') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            row_val = []
+            for val in row:
+                row_val.append(float(val))
+            data.append(row_val)  # Add each row to the data list
+
+    return data

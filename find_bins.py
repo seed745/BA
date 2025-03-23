@@ -1,25 +1,19 @@
 #scipt for finding the angular bins of the simple grid design
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 def find_bins():
-#function for calculating the active area corners from corners of the casing of a photodiode
-    def active(a,b,c,d):
-        a = [a[0]+2,a[1]-2.1]
-        b = [b[0]-5,b[1]-2.1]
-        c = [c[0]+2,c[1]+2.1]
-        d = [d[0]-5,d[1]+2.1]
-        return [a, b, c, d]
 
 #values in mm
-#grid of points matching each corner of photodiode
+#grid of points matching each corner of active area
 
 
     p = [] 
     x = 0
     y = 0
-    for i in range(35):
-        if i%4 == 0 and i != 0:
+    for i in range(50):
+        if i%3 == 0 and i != 0:
             x = 0
             y += -14.2
             
@@ -29,39 +23,51 @@ def find_bins():
             p.append([x,y])
             x += 27
 
-    #photodiode and point combination
-    diode = []
-    for i in range(20):
-        if i < 18:
-            diode.append(active(p[i+4],p[i+5],p[i+8],p[i+9]))
-        elif i == 18:
-            diode.append(active(p[1],p[2],p[5],p[6])) #adding the upper photodiode
-        elif i == 19:
-            diode.append(active(p[29],p[30],p[33],p[34])) #adding the upper photodiode
 
-    print(len(diode))
+    diode =[]
+    for i in p[3:21]:  #6x3 grid
+        pd = []
+        pd.append(i)
+        pd.append([i[0]+20,i[1]])
+        pd.append([i[0],i[1]-10])
+        pd.append([i[0]+20,i[1]-10])
+        diode.append(pd)
+    diode.append([[p[1][0],p[1][1]],[p[1][0]+20,p[1][1]],[p[1][0],p[1][1]-10],[p[1][0]+20,p[1][1]-10]])  #diode 19
+    diode.append([[p[22][0],p[22][1]],[p[22][0]+20,p[22][1]],[p[22][0],p[22][1]-10],[p[22][0]+20,p[22][1]-10]])  #diode 20
+    z = 60.8
+    top = []
+    for i in diode:
+        row=[]
+        for j in i:
+            row.append(j+[z])
+        top.append(row)
+
+    buttom = []
+    for i in diode:
+        row = []
+        for j in i:
+            row.append(j+[0])
+        buttom.append(row)
     #angles between each active corner point to each other photodiode and then min max of those values
-    z = 60.5
+   
+
     bins = []
     binpos = []
-    for top in diode:
+    for top in top:
         row = []
         posrow  =[]
-        for bot in diode:
+        for bot in buttom:
             theta = []
             phi = []
             for t in top:
                 for b in bot:
-                    theta.append(np.rad2deg(np.arctan2((b[1]-t[1]),z)))
-                    phi.append(np.rad2deg(np.arctan2((b[0]-t[0]),z)))
+                    theta.append(np.rad2deg(np.arccos(t[2]/np.linalg.norm([t[0]-b[0],t[1]-b[1],t[2]-b[2]]))))
+                    phi.append(np.rad2deg(np.arctan2((t[0]-b[0]),(t[1]-b[1]))))
             row.append([np.abs(min(theta)-max(theta)),np.abs(min(phi)-max(phi))])
             posrow.append([min(theta),min(phi)])
         bins.append(row)
         binpos.append(posrow)
+    
     return bins, binpos
 
 
-size, pos = find_bins()
-print(len(size))
-print()
-print(len(pos))

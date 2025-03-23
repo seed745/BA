@@ -61,13 +61,23 @@ def find_bins():
             phi = []
             for t in top:
                 for b in bot:
-                    theta.append(np.rad2deg(np.arccos(t[2]/np.linalg.norm([t[0]-b[0],t[1]-b[1],t[2]-b[2]]))))
+                    theta.append(np.rad2deg(np.arctan(np.linalg.norm([t[0]-b[0],t[1]-b[1]])/t[2])))
                     phi.append(np.rad2deg(np.arctan2((t[0]-b[0]),(t[1]-b[1]))))
             row.append([np.abs(min(theta)-max(theta)),np.abs(min(phi)-max(phi))])
             posrow.append([min(theta),min(phi)])
         bins.append(row)
         binpos.append(posrow)
     
-    return bins, binpos
+    return bins, binpos, diode
 
+b, p, diode = find_bins()
 
+x=[]
+y=[]
+for i in diode:
+    for j in i:
+        x.append(j[0])
+        y.append(j[1])
+
+plt.plot(x,y,"x")
+plt.show()

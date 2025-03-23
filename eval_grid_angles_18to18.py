@@ -56,7 +56,7 @@ heatmap = np.array(map)
 cmap = plt.cm.plasma
 norm = plt.Normalize(vmin=heatmap.min(),vmax=heatmap.max())
 
-i=7
+i=0
 j=17
 rect = p.Rectangle(
     (binpos[i][j][1],binpos[i][j][0]), binsize[i][j][1],binsize[i][j][0],

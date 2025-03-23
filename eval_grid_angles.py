@@ -38,7 +38,7 @@ for i in range(20):
             )
         ax.add_patch(rect)
 
-ax.set_xlim(0,360)
+ax.set_xlim(-190,190)
 ax.set_ylim(0,90)
 ax.set_aspect("auto")
 sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)  

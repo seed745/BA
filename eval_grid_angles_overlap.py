@@ -48,33 +48,32 @@ binsize , binpos = find_bins()
 binpos = np.array(binpos)
 binsize = np.array(binsize)
 
+gridsize_x=120
+gridsize_y=120
+pixelsize = 2
 
 
-grid_size = 500 
 x_min, x_max = binpos[:,:,0].min(), binpos[:,:,0].max()
 y_min, y_max = binpos[:,:,1].min(), binpos[:,:,1].max()
 """ x_grid = np.linspace(x_min, x_max + binsize[:,:,1].max(), grid_size, endpoint=True)
 y_grid = np.linspace(y_min, y_max + binsize[:,:,0].max(), grid_size, endpoint=True) """
-x_grid= np.linspace(0,90,grid_size)
-y_grid= np.linspace(0,90,grid_size)
-heat_grid = np.zeros((grid_size, grid_size)) 
+x_grid= np.arange(-gridsize_x//2,gridsize_x//2,pixelsize)
+y_grid= np.arange(-gridsize_y//2,gridsize_y//2,pixelsize)
+heat_grid = np.zeros((gridsize_x//pixelsize, gridsize_y//pixelsize)) 
+print(x_grid)
 
-for i in range(20):
-    for j in range(20):
-        y_start, x_start = binpos[i][j]
-        height, width = binsize[i][j]
-        heat_value = map[i][j]
+for x_idx in x_grid:
+    print(x_idx)
+    for y_idx in y_grid:
+        for i in range(20):
+            for j in range(20):
+                y_start, x_start = binpos[i][j]
+                height, width = binsize[i][j]
+                heat_value = map[i][j]
 
-        # Find grid indices that overlap with this rectangle
-        x_indices = np.where((x_grid >= x_start) & (x_grid <= x_start + width))[0]
-        y_indices = np.where((y_grid >= y_start) & (y_grid <= y_start + height))[0]
-
-        # Add the heat value to all overlapping grid cells
-        for x_idx in x_indices:
-            for y_idx in y_indices:
-                heat_grid[x_idx, y_idx] += heat_value  # Accumulate heat
-
-#heat_grid = gaussian_filter(heat_grid, sigma=1.5)
+                if x_idx >= x_start and y_idx >= y_start:
+                    if x_idx <= x_start + width and y_idx <= y_start + height:
+                         heat_grid[x_idx][y_idx] += heat_value
 
 fig, ax = plt.subplots(figsize=(8, 6))
 cmap = plt.cm.plasma
@@ -83,8 +82,8 @@ heatmap_plot = ax.pcolormesh(x_grid, y_grid, heat_grid, cmap=cmap, norm=norm, sh
 
 
 
-ax.set_xlim(0,90)
-ax.set_ylim(0,90)
+ax.set_xlim(-120,120)
+ax.set_ylim(-90,90)
 ax.set_aspect("auto")
 #sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)  
 #sm.set_array([]) 
@@ -97,6 +96,6 @@ for i in range(0,90,10):
 plt.xticks(range(0,89,10),ticks)
 plt.yticks(range(0,89,10),ticks) """
 
-plt.colorbar(heatmap_plot, ax=ax, label="GF in 1/(cm²sr)")  
+plt.colorbar(heatmap_plot, ax=ax, label="GF in cm²sr")  
 
 plt.show()

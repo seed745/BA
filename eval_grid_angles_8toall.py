@@ -26,14 +26,16 @@ cmap = plt.cm.plasma
 norm = plt.Normalize(vmin=heatmap.min(),vmax=heatmap.max())
 
 i=7
+count = 0
 for j in range(20):
     rect = p.Rectangle(
         (binpos[i][j][1],binpos[i][j][0]), binsize[i][j][1],binsize[i][j][0],
         linewidth = 1, edgecolor="black",
         facecolor=cmap(norm(data[i][j])),
-        alpha=0.2  #transparency value
+        alpha=0.3  #transparency value
         )
     ax.add_patch(rect)
+    count += 1
 
 ax.set_xlim(-190,190)
 ax.set_ylim(0,90)
@@ -50,5 +52,5 @@ ax.set_xticks(range(0,89,10),ticks)
 ax.set_yticks(range(0,89,10),ticks) """
 
 cbar = plt.colorbar(sm, ax=ax, label="GF in cm²sr")  
-
+print(f"Rectangle count: {count}")
 plt.show()

@@ -5,14 +5,14 @@ area10 = 3.14
 area20 = 7.07
 
 hand = []
-hand.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq10_self.0.hits",area10),5))
-hand.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq20_self.0.hits",area20),3))
+hand.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq10_self.0.hits",area10),7))
+hand.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq20_self.0.hits",area20),5))
 
 mrad =[]
-mrad.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq10_mid.0.hits",area10),5))
+mrad.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq10_mid.0.hits",area10),7))
 
 #mrad.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq10.0.hits",area10),5))
-mrad.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq20.0.hits",area20),3))
+mrad.append(np.round(u.eval("/home/jasper/OneDrive/Uni/Bachelor/sim/verif/eq20.0.hits",area20),5))
 
 PD=["10x10","20x10"]
 

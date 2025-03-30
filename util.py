@@ -60,17 +60,34 @@ def eval(file, area):
 
     #counting the coincidence events
     dupli = df[df.duplicated(subset=["evid"],keep=False)]
-    print(dupli.size)
     group = dupli.groupby(by=["detid"]).indices
-    print(group)
+    
     hits = len(group[0])
-    ratio = hits/1000000
+    print(hits)
+    ratio = np.sqrt(hits)/1000000
     geofac = np.pi*area*ratio
 
     return geofac
 
 def geofac_data():
     filename = 'grid_gf.csv'
+
+    # Initialize an empty list to store the data
+    data = []
+
+    # Open the CSV file for reading
+    with open(filename, mode='r', newline='') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            row_val = []
+            for val in row:
+                row_val.append(float(val))
+            data.append(row_val)  # Add each row to the data list
+
+    return data
+
+def geofac_error():
+    filename = 'grid_error.csv'
 
     # Initialize an empty list to store the data
     data = []

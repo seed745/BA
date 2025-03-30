@@ -1,3 +1,6 @@
+import numpy as np
+import re
+
 def float_to_latex_scientific(num):
     # Format the number as scientific notation with a precision of 5 decimal places
     formatted = "{:.5e}".format(num)
@@ -23,3 +26,7 @@ print(latex_output)  # Expected output: 1.23457 \times 10^{4}
 num2 = 0.000123456
 latex_output2 = float_to_latex_scientific(num2)
 print(latex_output2)  # Expected output: 1.23456 \times 10^{-4}
+
+j = "-43--23"
+nums = re.findall(r"\d+",j)
+print(nums)

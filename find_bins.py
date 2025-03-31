@@ -53,24 +53,29 @@ def find_bins():
 
     bins = []
     binpos = []
-    for top in top:
+    for tops in range(len(top)):
         row = []
         posrow  =[]
-        for bot in buttom:
+        for bot in range(len(buttom)):
             theta = []
             phi = []
-            for t in top:
-                for b in bot:
-                    theta.append(np.rad2deg(np.arctan(np.linalg.norm([t[0]-b[0],t[1]-b[1]])/t[2])))
-                    phi.append(np.rad2deg(np.arctan2((t[0]-b[0]),(t[1]-b[1]))))
-            row.append([np.abs(min(theta)-max(theta)),np.abs(min(phi)-max(phi))])
-            posrow.append([min(theta),min(phi)])
+            
+            for t in top[tops]:
+                for b in buttom[bot]:
+                    theta.append(np.rad2deg(np.arccos(t[2]/np.linalg.norm([t[0]-b[0],t[1]-b[1],t[2]]))))
+                    phi.append(np.rad2deg(np.arctan2((t[1]-b[1]),(t[0]-b[0]))))
+            if tops == bot:
+                row.append([np.abs(min(theta)-max(theta)),360])
+                posrow.append([min(theta),-180])
+            else:
+                row.append([np.abs(min(theta)-max(theta)),np.abs(min(phi)-max(phi))])
+                posrow.append([min(theta),min(phi)])
         bins.append(row)
         binpos.append(posrow)
     
-    return bins, binpos, diode
+    return bins, binpos
 
-b, p, diode = find_bins()
+""" b, p, diode = find_bins()
 
 x=[]
 y=[]
@@ -81,3 +86,4 @@ for i in diode:
 
 plt.plot(x,y,"x")
 plt.show()
+ """

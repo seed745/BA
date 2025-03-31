@@ -98,7 +98,7 @@ plt.xticks(range(-180,181,45))
 
 
 cbar = plt.colorbar(heatmap_plot, ax=ax)  
-cbar.set_label("G in cm²sr", fontsize=16)  # Label size
+cbar.set_label(r"$g$ in $\frac{1}{cm²sr}$", fontsize=16)  # Label size
 cbar.ax.tick_params(labelsize=14)  # Tick size
 
 plt.show()

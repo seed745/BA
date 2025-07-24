@@ -38,7 +38,7 @@ def find_bins():
         diode.append(pd)
     diode.append([[p[1][0],p[1][1]],[p[1][0]+20,p[1][1]],[p[1][0],p[1][1]-10],[p[1][0]+20,p[1][1]-10]])  #diode 19
     diode.append([[p[22][0],p[22][1]],[p[22][0]+20,p[22][1]],[p[22][0],p[22][1]-10],[p[22][0]+20,p[22][1]-10]])  #diode 20
-    z = 60.8
+    z = 56.7
     top = []
     for i in diode:
         row=[]
@@ -107,7 +107,7 @@ def find_bins():
     return bins, binpos
 
 bin,pos = find_bins()
-print(bin[0][1])
-print(pos[0][1])
-print(pos[0][0])
-print(pos[0][0])
+print("--------------------- bin ------------------------")
+print(bin)
+print("--------------------- pos ------------------------")
+print(pos)

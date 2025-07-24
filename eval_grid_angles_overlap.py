@@ -43,6 +43,7 @@ heat_grid = np.zeros((360, 90))
 erg = 0
 
 solid_angle = []
+ 
 for i in range(20):
     row = []
     for j in range(20):
@@ -98,7 +99,7 @@ plt.xticks(range(-180,181,45))
 
 
 cbar = plt.colorbar(heatmap_plot, ax=ax)  
-cbar.set_label(r"$g$ in $\frac{1}{cm²sr}$", fontsize=16)  # Label size
+cbar.set_label(r"d$G$ in $cm²sr$", fontsize=16)  # Label size
 cbar.ax.tick_params(labelsize=14)  # Tick size
 
 plt.show()

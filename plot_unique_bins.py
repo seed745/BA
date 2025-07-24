@@ -32,11 +32,7 @@ def find_bigger_bins(dict):
         for bin in big_bins[key]:
             res[key].extend(dict[bin])
     
-    #return res
-    for k in res:
-        res[k]=len(res[k])
     return res
-
 
 binsize , binpos = find_bins()
 binpos = np.array(binpos)
@@ -86,7 +82,7 @@ for y_idx in y_grid[:-1]:
                     else:
                         theta_plus[bin].append([i,j]) 
                     
-"""     if heat_grid[x_idx][y_idx][0] >= 1:
+    if heat_grid[x_idx][y_idx][0] >= 1:
         rect = p.Rectangle(
             (x_idx,y_idx), heat_grid[x_idx][y_idx][1],heat_grid[x_idx][y_idx][2],
             linewidth = 1, edgecolor="black",
@@ -94,7 +90,7 @@ for y_idx in y_grid[:-1]:
             alpha=0.3  #transparency value
             )
         ax.add_patch(rect)
-        count += 1 """
+        count += 1
 print()
 print("-----------------Count fertig-----------------")
 
@@ -104,7 +100,52 @@ print()
 print(find_bigger_bins(theta_min))
 print()
 #find_bigger_bins(theta_plus)
+""" 
+for x_idx in x_grid[:-1]:
+    print(x_idx)
+    for y_idx in y_grid[:-1]: 
+        #print(y_idx)
+        for i in range(20):
+            for j in range(20):
+                y_start, x_start = binpos[i][j]
+                height, width = binsize[i][j]
+                heat_value = data[i][j]
+
+                if x_idx >= x_start and y_idx >= y_start:
+                    if x_idx <= x_start + width and y_idx <= y_start + height:
+                         pixel_solid = (np.cos(np.deg2rad(y_idx))-np.cos(np.deg2rad(y_idx+pixelsize_y)))*(np.deg2rad(pixelsize_x))
+                         #print(pixel_solid)
+                         #print(solid_angle[i][j])
+                         norm = (pixel_solid/solid_angle[i][j])
+                         #print(norm)
+                         heat_grid[x_idx][y_idx] += heat_value*norm
+
+print(np.sum(heat_grid))
+fig, ax = plt.subplots(figsize=(8, 6))
+cmap = plt.cm.plasma
+norm = plt.Normalize(vmin=heat_grid.min(), vmax=heat_grid.max())
+heatmap_plot = ax.pcolormesh(x_grid, y_grid, np.transpose(heat_grid), cmap=cmap, norm=norm)
 
 
 
 
+ax.set_aspect("auto")
+#sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)  
+#sm.set_array([]) 
+plt.xlabel(r"$\varphi$ in °")
+plt.ylabel(r"$\Theta$ in °")
+
+
+plt.yticks(range(0,91,30))
+
+plt.xticks(range(-180,181,45))
+
+
+cbar = plt.colorbar(heatmap_plot, ax=ax)  
+cbar.set_label(r"$g$ in $\frac{1}{cm²sr}$", fontsize=16)  # Label size
+cbar.ax.tick_params(labelsize=14)  # Tick size
+
+plt.show()
+
+
+ """

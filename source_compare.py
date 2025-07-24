@@ -5,6 +5,13 @@ import numpy as np
 from matplotlib import pyplot as plt
 from util import tabelle2
 
+plt.rcParams.update({
+    "axes.labelsize": 16,       # X and Y axis labels
+    "xtick.labelsize": 14,      # X-axis tick labels
+    "ytick.labelsize": 14,      # Y-axis tick labels
+
+})
+
 source_length = np.array([2,4,6,8,9,9.5,10,12,14]) #in mm
 source_area = (source_length/10)**2*np.pi
 geofacs = []
@@ -32,7 +39,7 @@ for i in range(9):
     area = (source_length[i]/10)**2*np.pi 
     #source_area.append(area)
 
-    #geometry factor in 1/cm²sr
+    #geometry factor in cm²sr
     geofac = np.pi*area*ratio
     geofacs.append(geofac)
 
@@ -40,12 +47,12 @@ for i in range(9):
 #tabelle2(source_length,np.round(geofacs,4))
 
 #plot generation
-plt.errorbar(source_area,geofacs,yerr= 0.0004,capsize = 5, capthick = 2)
+plt.plot(source_area,geofacs)
 #plt.xlim(left=2)
 plt.axhline(y=0.0268, linestyle ="--", linewidth= 2, color = "orange")
 plt.axvline(x=2.78, linestyle="--", linewidth= 2, color = "green")
-plt.ylabel("geometry factor in 1/cm²sr")
-plt.xlabel("source area in cm²")
+plt.ylabel("G in cm²sr")
+plt.xlabel(r"$A_{source}$ in cm²")
 plt.legend(["Simulation","Analytical","FOV projection"])
 plt.show()
 

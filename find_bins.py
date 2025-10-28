@@ -106,8 +106,3 @@ def find_bins():
     
     return bins, binpos
 
-bin,pos = find_bins()
-print("--------------------- bin ------------------------")
-print(bin)
-print("--------------------- pos ------------------------")
-print(pos)

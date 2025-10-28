@@ -70,7 +70,7 @@ def eval(file, area):
     return geofac
 
 def geofac_data():
-    filename = 'grid_gf.csv'
+    filename = 'grid_gf_final_3.csv'
 
     # Initialize an empty list to store the data
     data = []
